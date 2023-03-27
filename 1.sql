@@ -1,6 +1,6 @@
 use master
 Go
-IF EXISTS(select * from sys.sysdatabases where name='BD1') DROP DATABASE [BD1]
+--IF EXISTS(select * from sys.sysdatabases where name='BD1') DROP DATABASE [BD1]
 GO
 CREATE DATABASE BD1 ON PRIMARY
 	( 
