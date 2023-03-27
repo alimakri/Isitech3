@@ -28,4 +28,27 @@ CREATE TABLE dbo.Personne
 	CONSTRAINT [PK_Personne] PRIMARY KEY CLUSTERED ([Id] ASC)
 ) 
 GO
+CREATE TABLE dbo.Ville
+(
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Nom] [nvarchar](50) NOT NULL,
+	CONSTRAINT [PK_Ville] PRIMARY KEY CLUSTERED ([Id] ASC)
+) 
+GO
+CREATE TABLE [dbo].[PersonneVille]
+(
+	[Personne] [bigint] NOT NULL,
+	[Ville] [bigint] NOT NULL
+) 
+GO
+
+ALTER TABLE [dbo].[PersonneVille]  WITH CHECK ADD  CONSTRAINT [FK_PersonneVille_Personne] FOREIGN KEY([Personne]) REFERENCES [dbo].[Personne] ([Id])
+ALTER TABLE [dbo].[PersonneVille] CHECK CONSTRAINT [FK_PersonneVille_Personne]
+GO
+
+ALTER TABLE [dbo].[PersonneVille]  WITH CHECK ADD  CONSTRAINT [FK_PersonneVille_Ville] FOREIGN KEY([Ville]) REFERENCES [dbo].[Ville] ([Id])
+ALTER TABLE [dbo].[PersonneVille] CHECK CONSTRAINT [FK_PersonneVille_Ville]
+GO
+
+
 
