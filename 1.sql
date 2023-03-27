@@ -40,7 +40,7 @@ CREATE TABLE [dbo].[PersonneVille]
 	[Personne] [bigint] NOT NULL,
 	[Ville] [bigint] NOT NULL
 ) 
-GO
+GO 
 
 ALTER TABLE [dbo].[PersonneVille]  WITH CHECK ADD  CONSTRAINT [FK_PersonneVille_Personne] FOREIGN KEY([Personne]) REFERENCES [dbo].[Personne] ([Id])
 ALTER TABLE [dbo].[PersonneVille] CHECK CONSTRAINT [FK_PersonneVille_Personne]
