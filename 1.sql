@@ -49,6 +49,24 @@ GO
 ALTER TABLE [dbo].[PersonneVille]  WITH CHECK ADD  CONSTRAINT [FK_PersonneVille_Ville] FOREIGN KEY([Ville]) REFERENCES [dbo].[Ville] ([Id])
 ALTER TABLE [dbo].[PersonneVille] CHECK CONSTRAINT [FK_PersonneVille_Ville]
 GO
+insert Personne (Nom, Prenom) values
+	('Dupont', 'Pierre'),
+	('Zola', 'Emile'),
+	('Poquelin', 'Jean-Baptiste')
+insert Ville (Nom) values('Paris'),('Lyon'), ('Marseille')
 
+insert PersonneVille (Personne, Ville) values
+	(1, 1),
+	(2, 1),
+	(2, 2)
+
+SELECT 
+	Personne.Prenom  AS prenom, 
+	Personne.Nom AS Nom, 
+	Ville.Nom AS Ville
+FROM     
+	Personne 
+	FULL OUTER JOIN PersonneVille ON Personne.Id = PersonneVille.Personne 
+	FULL OUTER JOIN Ville ON PersonneVille.Ville = Ville.Id
 
 
