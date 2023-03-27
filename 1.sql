@@ -59,7 +59,7 @@ insert PersonneVille (Personne, Ville) values
 	(1, 1),
 	(2, 1),
 	(2, 2)
-
+	 
 SELECT 
 	Personne.Prenom  AS prenom, 
 	Personne.Nom AS Nom, 
