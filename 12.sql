@@ -1,10 +1,15 @@
 -- Proc stoc Filtrer par ville, par initial de nom
 CREATE PROC ListePersonne(@ville nvarchar(50), @initiale char)
 AS
-SELECT Person.Person.BusinessEntityID, Person.Person.FirstName, Person.Person.LastName, Person.Address.City
-FROM     Person.Address INNER JOIN
-                  Person.BusinessEntityAddress ON Person.Address.AddressID = Person.BusinessEntityAddress.AddressID INNER JOIN
-                  Person.Person ON Person.BusinessEntityAddress.BusinessEntityID = Person.Person.BusinessEntityID
+SELECT 
+	p.BusinessEntityID id, 
+	p.FirstName prenom, 
+	p.LastName nom, 
+	a.City ville
+FROM     
+	Person.Address a
+	INNER JOIN Person.BusinessEntityAddress bea ON a.AddressID = bea.AddressID 
+	INNER JOIN Person.Person p ON bea.BusinessEntityID = p.BusinessEntityID
 GO
 EXEC ListePersonne
 Exec ListePersonne 'Seattle'
