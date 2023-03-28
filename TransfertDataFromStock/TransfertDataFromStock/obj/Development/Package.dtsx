@@ -1,0 +1,417 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/28/2023 1:48:42 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PIONE"
+  DTS:CreatorName="PIONE\alima"
+  DTS:DTSID="{F773C995-1538-44B8-9DE9-37C2491DE6E0}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5035.3"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="3"
+  DTS:VersionGUID="{C1ABDEFB-543E-4043-9F05-1FF9BE142D39}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[.\SQLEXPRESS.Stock]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{BE3CDF71-00C3-4212-A3BB-74F462337540}"
+      DTS:ObjectName=".\SQLEXPRESS.Stock">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=Stock;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{BE3CDF71-00C3-4212-A3BB-74F462337540}.\SQLEXPRESS.Stock;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Flat File Connection Manager]"
+      DTS:CreationName="FLATFILE"
+      DTS:Description="Fichier CSV"
+      DTS:DTSID="{950DCB2B-ED8C-4C09-A529-4CDDE02634B2}"
+      DTS:ObjectName="Flat File Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1036"
+          DTS:Unicode="True"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="D:\TousLesProduits.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="20"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Id"
+              DTS:DTSID="{5E5B70F1-369C-48B3-8DC1-068B8C1A7E55}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Nom"
+              DTS:DTSID="{CAF8BD62-9F9F-458C-B6D9-C59E3F06FC08}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:DataType="131"
+              DTS:DataPrecision="18"
+              DTS:DataScale="2"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Prix"
+              DTS:DTSID="{95B53DE7-6FE9-4B4C-BA05-B26B7232154A}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Export des produits"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{18F3A5C4-2647-43BC-8640-7FBDCDA3801A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Export des produits"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Export des produits\Destination de fichier plat"
+              componentClassID="Microsoft.FlatFileDestination"
+              contactInfo="Destination de fichier plat;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;1"
+              description="Destination de fichier plat"
+              localeId="1036"
+              name="Destination de fichier plat"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Spécifie si les données remplaceront ou seront ajoutées au fichier de destination."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Spécifie le texte à enregistrer sur le fichier de destination avant d'enregistrer des données."
+                  expressionType="Notify"
+                  name="Header" />
+                <property
+                  dataType="System.Boolean"
+                  description="Quand le qualificateur de texte est activé, spécifie si le qualificateur de texte dans les données écrites dans le fichier de destination va être échappé ou non."
+                  name="EscapeQualifier">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Export des produits\Destination de fichier plat.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Flat File Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Flat File Connection Manager]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat]"
+                  hasSideEffects="true"
+                  name="Entrée de destination de fichier plat">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat].Columns[Id]"
+                      cachedDataType="i8"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat].ExternalColumns[Id]"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].Columns[Id]" />
+                    <inputColumn
+                      refId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat].Columns[Nom]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="Nom"
+                      externalMetadataColumnId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat].ExternalColumns[Nom]"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].Columns[Nom]" />
+                    <inputColumn
+                      refId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat].Columns[Prix]"
+                      cachedDataType="numeric"
+                      cachedName="Prix"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat].ExternalColumns[Prix]"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].Columns[Prix]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat].ExternalColumns[Id]"
+                      dataType="i8"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat].ExternalColumns[Nom]"
+                      dataType="wstr"
+                      length="50"
+                      name="Nom" />
+                    <externalMetadataColumn
+                      refId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat].ExternalColumns[Prix]"
+                      dataType="numeric"
+                      name="Prix"
+                      precision="18"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\Export des produits\Produits"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Produits"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from Produit</property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Export des produits\Produits.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[.\SQLEXPRESS.Stock]"
+                  connectionManagerRefId="Package.ConnectionManagers[.\SQLEXPRESS.Stock]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].Columns[Id]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].ExternalColumns[Id]"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].Columns[Nom]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].ExternalColumns[Nom]"
+                      length="50"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].Columns[Nom]"
+                      name="Nom"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].Columns[Prix]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].ExternalColumns[Prix]"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].Columns[Prix]"
+                      name="Prix"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].ExternalColumns[Id]"
+                      dataType="i8"
+                      name="Id" />
+                    <externalMetadataColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].ExternalColumns[Nom]"
+                      dataType="wstr"
+                      length="50"
+                      name="Nom" />
+                    <externalMetadataColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB].ExternalColumns[Prix]"
+                      dataType="numeric"
+                      name="Prix"
+                      precision="18"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB].Columns[Id]"
+                      dataType="i8"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB].Columns[Id]"
+                      name="Id" />
+                    <outputColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB].Columns[Nom]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB].Columns[Nom]"
+                      name="Nom" />
+                    <outputColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB].Columns[Prix]"
+                      dataType="numeric"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB].Columns[Prix]"
+                      name="Prix"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Export des produits\Produits.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Export des produits.Paths[Sortie de source OLE DB]"
+              endId="Package\Export des produits\Destination de fichier plat.Inputs[Entrée de destination de fichier plat]"
+              name="Sortie de source OLE DB"
+              startId="Package\Export des produits\Produits.Outputs[Sortie de source OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="168,41.6"
+          Id="Package\Export des produits"
+          TopLeft="219.166657957766,121.333334297604" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Export des produits">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="116.8,41.6"
+          Id="Package\Export des produits\Produits"
+          TopLeft="222.499991158645,76.2666672727797" />
+        <NodeLayout
+          Size="195.2,41.6"
+          Id="Package\Export des produits\Destination de fichier plat"
+          TopLeft="198.214277837958,224.095239876187" />
+        <EdgeLayout
+          Id="Package\Export des produits.Paths[Sortie de source OLE DB]"
+          TopLeft="280.899991158645,117.86666727278">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="14.9142866793132,106.228572603407"
+              Start="0,0"
+              End="14.9142866793132,98.7285726034075">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.1142863017037" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,49.1142863017037"
+                    Point2="0,53.1142863017037"
+                    Point3="4,53.1142863017037" />
+                  <mssgle:LineSegment
+                    End="10.9142866793132,53.1142863017037" />
+                  <mssgle:CubicBezierSegment
+                    Point1="10.9142866793132,53.1142863017037"
+                    Point2="14.9142866793132,53.1142863017037"
+                    Point3="14.9142866793132,57.1142863017037" />
+                  <mssgle:LineSegment
+                    End="14.9142866793132,98.7285726034075" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Export des produits\Produits">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
