@@ -1,5 +1,5 @@
 
-RAISERROR ('sdfsjflm sl Ali MAKRI lqdjlsq', 16, 1)
+RAISERROR ('sdfsjflm sl Ali MAKRI lqdjlsq', 16, 1) WITH LOG
 
 select * from TableMessage
 
