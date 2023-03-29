@@ -47,3 +47,4 @@ select * from Cotation
 -- Créer une alerte qui lorsque la BD dépasse 1 Go 
 -- rédéfinit la taille de la BD à 3 Go
 
+ALTER DATABASE CAC40 MODIFY FILE (NAME = 'CAC40', SIZE = 3GB, FILEGROWTH = 1GB)
