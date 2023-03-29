@@ -117,3 +117,4 @@ BEGIN
     update TableMessage set Message=Message
 	WAITFOR DELAY '00:00:00.001'; 
 END
+select * from TableMessage
