@@ -148,3 +148,14 @@ INSERT INTO dbo.MyEmployees VALUES
 ,(286, N'Lynn', N'Tsoflias', N'Sales Representative', 3, 285)
 ,(16, N'David', N'Bradley', N'Marketing Manager', 4, 273)
 ,(23, N'Mary', N'Gibson', N'Marketing Specialist', 4, 16);
+
+WITH t(EmployeeID, FirstName, LastName, Niveau) AS
+(
+	select EmployeeID, FirstName, LastName, 1 Niveau from MyEmployees where ManagerID IS NULL
+	UNION ALL
+	select e.EmployeeID, e.FirstName, e.LastName, t.Niveau + 1 Niveau 
+		from MyEmployees e 
+		inner join t on ManagerID = t.EmployeeID
+)
+select * from t
+
